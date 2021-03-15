@@ -2,9 +2,11 @@ package org.example;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 public class JsonServlet extends HttpServlet {
 
@@ -22,12 +24,8 @@ public class JsonServlet extends HttpServlet {
     }
 
 
-    public void readJson(HttpServletResponse response) throws IOException {
-
-
-
-
-
+    public <T> T readJson(Class<T> tClass, HttpServletRequest request) throws IOException {
+        return objectMapper.readValue(request.getInputStream(), tClass);
     }
 
 
