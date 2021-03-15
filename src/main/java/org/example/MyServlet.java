@@ -1,21 +1,25 @@
 package org.example;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.example.entity.Applications;
 
 import java.io.IOException;
 
-public class MyServlet extends HttpServlet {
+public class MyServlet extends JsonServlet {
 
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        resp.setHeader("Content-Type","text/plain");
-        resp.getWriter().println("Привет");
-        resp.getWriter().flush();
+
+        Applications applications =new Applications()
+                .setName("Протокол связи")
+                .setDescription("Протокол описывающий связь")
+                .setDate("14.01.2020");
+
+        writeJson(applications,resp);
+
 
     }
 
