@@ -1,14 +1,15 @@
 package org.example.patterns;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.http.HttpServletRequest;
 import org.example.service.ApplicationsService;
 import org.example.service.UserService;
 import org.example.dto.RequestRespone;
 import org.example.entity.Applications;
 import org.example.entity.User;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class UberFactory {
@@ -29,9 +30,6 @@ public class UberFactory {
     User user;
     Applications applications;
 
-
-
-
     public ApplicationsService getApplicationsService() {
         return applicationsService;
     }
@@ -46,15 +44,10 @@ public class UberFactory {
         return userService;
     }
 
-
     public UberFactory() {
         this.userService = new UserService();
         this.applicationsService = new ApplicationsService();
     }
-
-
-
-
 
     public void buildParametrsPost(HttpServletRequest httpServletRequest) throws IOException {
         RequestRespone requestRespone = objectMapper.readValue(httpServletRequest.getInputStream(),RequestRespone.class);
@@ -82,11 +75,6 @@ public class UberFactory {
                 .setPassword(userpassword);
 
     }
-
-
-
-
-
 
 
 }

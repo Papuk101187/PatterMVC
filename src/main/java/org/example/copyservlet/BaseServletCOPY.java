@@ -1,22 +1,22 @@
-package org.example.servlets;
+package org.example.copyservlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
-import org.example.service.UserService;
 import org.example.entity.Applications;
-import org.example.service.ApplicationsService;
 import org.example.entity.User;
 import org.example.patterns.UberFactory;
+import org.example.service.ApplicationsService;
+import org.example.service.UserService;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class MyServletPostandGet extends HttpServlet {
+public class BaseServletCOPY extends HttpServlet {
 
 
     UberFactory uberFactory = new UberFactory();
@@ -52,7 +52,6 @@ public class MyServletPostandGet extends HttpServlet {
 
 
     @SneakyThrows
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         uberFactory.buildParametrsPost(request); // создаём юзера и заявку внутри фабрики

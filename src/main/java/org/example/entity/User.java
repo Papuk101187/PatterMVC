@@ -10,9 +10,11 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class User {
 
-    String fio;
-    String password;
-    String date;
+    private String id;
+    private String fio;
+    private String password;
+    private String date;
+
 
 
 }

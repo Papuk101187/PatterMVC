@@ -1,13 +1,13 @@
 package org.example.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.example.dto.RequestRespone;
 import org.example.dto.ResponceIDapp;
 import org.example.entity.Applications;
 import org.example.entity.User;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.*;
 import java.time.DayOfWeek;
@@ -117,6 +117,52 @@ public class ApplicationsService {
 
 
 
+
+    }
+    public ArrayList<Applications> getAll() throws SQLException {
+
+
+        ArrayList<Applications> applicat = new ArrayList<>();
+
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Connection connection = DriverManager.getConnection(dsn, userbas, pass);
+
+            String sql = "SELECT date_application,name_application,description_application " +
+                    "FROM application INNER JOIN users " +
+                    "ON users.id_user=application.id_user " +
+                    "WHERE fio_user=? AND login_password=?";
+
+            String sql2 = "SELECT date_application,description_application,name_application FROM application " +
+                    "INNER JOIN users ON users.id_user=application.id_user ";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql2);
+
+
+
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                Applications applications = new Applications()
+                        .setName(resultSet.getString("name_application"))
+                        .setDescription(resultSet.getString("description_application"))
+                        .setDate(resultSet.getString("date_application"));
+                applicat.add(applications);
+//
+            }
+
+        } catch (SQLException es) {
+            es.printStackTrace();
+        }
+
+        return applicat;
 
     }
 

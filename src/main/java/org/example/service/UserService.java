@@ -1,10 +1,12 @@
 package org.example.service;
 
-import jakarta.servlet.http.HttpServletResponse;
+import org.example.entity.Applications;
 import org.example.entity.User;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserService {
 
@@ -74,6 +76,42 @@ public class UserService {
         }
 
     }
+
+
+    public List<User> getAllUsers() {
+
+        ArrayList<User> userscontains = new ArrayList<>();
+
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            Connection connection = DriverManager.getConnection(URL, USER, PASS);
+            String sql = "SELECT FIO_user,login_password,date_born_user,id_user FROM users";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                User user = new User()
+                        .setFio(resultSet.getString("fio_user"))
+                        .setPassword(resultSet.getString("login_password"))
+                        .setDate(resultSet.getString("date_born_user"))
+                        .setId(resultSet.getString("id_user"));
+                userscontains.add(user);
+//
+            }
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return userscontains;
+    }
+
 
 
 }
