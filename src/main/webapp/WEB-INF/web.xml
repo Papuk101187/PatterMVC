@@ -41,6 +41,11 @@
         <url-pattern>/delete</url-pattern>
     </servlet-mapping>
 
+
+
+
+
+
 <!--    <servlet>-->
 <!--        <servlet-name>DispatcherServlet</servlet-name>-->
 <!--        <servlet-class>org.example.project2mvc.infrastructure.DispatcherServlet</servlet-class>-->

@@ -35,13 +35,9 @@ public class AddNoteServlet extends HttpServlet {
 
         UserService userService = new UserService();
 
-        System.out.println("id  --- "+id);
         User user = userService.getAllUsersId(id);
+        ArrayList<Applications> applicat = applicationsService.getApplications(id);
 
-
-        System.out.println(user);
-
-        ArrayList<Applications> applicat = applicationsService.getpostApplications(user);
 
         request.setAttribute("applicat", applicat);
         getServletContext().getRequestDispatcher("/WEB-INF/views/mjsp1.jsp").forward(request, response);

@@ -12,14 +12,15 @@ import java.util.stream.Stream;
 
 public class ApplicationContext {
 
-    Map<Class,Object> beans = new HashMap<>();
 
+    Map<Class,Object> beans = new HashMap<>();
     private final PackageScanner packageScanner = new PackageScanner();
 
 
     public ApplicationContext() throws IllegalAccessException {
         createBeans();
     }
+
 
 
     private void createBeans() throws IllegalAccessException {
@@ -34,22 +35,35 @@ public class ApplicationContext {
     }
 
 
+
+
     private void postProcessBean(Object bean) throws IllegalAccessException {
 
-        List<Field> fields = Arrays.stream(beans.getClass().getDeclaredFields())
+        List<Field> fields = Arrays.stream(bean.getClass().getDeclaredFields())
                 .filter(f -> f.isAnnotationPresent(Autowired.class))
                 .collect(Collectors.toList());
 
         for (Field field : fields) {
             field.setAccessible(true);
+
             Class type = field.getType();
+
+
             Object value = getBeanByType(type);
             field.set(bean, value);
         }
+
     }
 
 
     public Object getBeanByType(Class type) {
+
+//        Object value = beans.keySet().stream().filter(type::isAssignableFrom)
+//                .findFirst()
+//                .map(cls->beans.get(cls))
+//                .orElse(null);
+//
+//
         Object value = beans.keySet().stream()
                 .filter(type::isAssignableFrom)
                 .findFirst()

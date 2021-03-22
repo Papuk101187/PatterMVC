@@ -30,18 +30,7 @@ public class DeleteNoteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        UserService userService = new UserService();
-        List<User> users = userService.getAllUsers();
 
-        int start = request.getContextPath().length() + request.getServletPath().length();
-        String id = request.getRequestURI().substring(start + 1);
-        int index = Integer.parseInt(id) - 1;
-
-        User user = users.get(index);
-        ArrayList<Applications> applicat = applicationsService.getpostApplications(user);
-
-        request.setAttribute("applicat", applicat);
-        getServletContext().getRequestDispatcher("/WEB-INF/views/mjsp1.jsp").forward(request, response);
 
 
     }

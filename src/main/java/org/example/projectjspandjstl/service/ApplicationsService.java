@@ -39,7 +39,7 @@ public class ApplicationsService {
     }
 
 
-    public ArrayList<Applications> getpostApplications(User user) throws SQLException {
+    public ArrayList<Applications> getApplications(String idApplication) throws SQLException {
 
 
         ArrayList<Applications> applicat = new ArrayList<>();
@@ -53,18 +53,12 @@ public class ApplicationsService {
         try {
             Connection connection = DriverManager.getConnection(dsn, userbas, pass);
 
-            String sql = "SELECT date_application,name_application,description_application " +
-                    "FROM application INNER JOIN users " +
-                    "ON users.id_user=application.id_user " +
-                    "WHERE fio_user=? AND login_password=?";
 
             String sql2 = "SELECT date_application,description_application,name_application FROM application " +
-                    "INNER JOIN users ON users.id_user=application.id_user " +
-                    "WHERE fio_user=? AND login_password=?";
+                    "WHERE id_user="+idApplication+";";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql2);
-            preparedStatement.setString(1, user.getFio());
-            preparedStatement.setString(2, user.getPassword());
+
 
 
             ResultSet resultSet = preparedStatement.executeQuery();
