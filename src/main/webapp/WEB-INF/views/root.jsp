@@ -1,5 +1,5 @@
-<%@ page import="org.example.service.UserService" %>
-<%@ page import="org.example.entity.User" %>
+<%@ page import="org.example.projectjspandjstl.service.UserService" %>
+<%@ page import="org.example.projectjspandjstl.entity.User" %>
 <%@ page import="java.util.List" %>
 <%@page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -9,7 +9,7 @@
 <html>
 <head>
 
-    <h1> Пользователи </h1>
+    <h1> Пользователи : </h1>
 
     <title>Title</title>
 
@@ -26,8 +26,17 @@
         <li>
             <a
                     href="<c:url value="/users/${users.id}"/>">
-                <b>${users.fio}</b>
+                <table border="1">
+                <td><b>${users.fio}</b></td>
+                    </table>
             </a>
+            <table border="1">
+
+            <form action="<c:url value="/delete"/>" method="post">
+               <input type="hidden" value="${users.id}" name="id">
+                <td><input type="submit" value="delete"></td>
+           </form>
+            </table>
         </li>
 
 

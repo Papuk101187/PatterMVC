@@ -1,5 +1,5 @@
-<%@ page import="org.example.service.UserService" %>
-<%@ page import="org.example.entity.User" %>
+<%@ page import="org.example.projectjspandjstl.service.UserService" %>
+<%@ page import="org.example.projectjspandjstl.entity.User" %>
 <%@ page import="java.util.List" %>
 <%@page isELIgnored="false" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
