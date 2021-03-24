@@ -25,18 +25,16 @@
 
         <li>
             <a
-                    href="<c:url value="/users${users.id}"/>">
-                <table border="1">
+                    href="<c:url value="/users/${users.id}"/>">
                 <td><b>${users.fio}</b></td>
-                    </table>
             </a>
-            <table border="1">
+
+
 
             <form action="<c:url value="/delete"/>" method="post">
                <input type="hidden" value="${users.id}" name="id">
                 <td><input type="submit" value="delete"></td>
            </form>
-            </table>
         </li>
 
 

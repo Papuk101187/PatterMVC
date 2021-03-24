@@ -12,10 +12,10 @@ public class JsonController {
     private ObjectMapper mapper = new ObjectMapper();
 
 
-    protected void writeJson(Object object, HttpServletResponse response){
+    protected void writeJson(Object object, HttpServletResponse response) {
 
         try {
-            response.setHeader("Content-Type","application/json");
+            response.setHeader("Content-Type", "application/json");
             String strResponce = mapper.writeValueAsString(object);
             response.getWriter().print(strResponce);
             response.getWriter().flush();
@@ -29,10 +29,8 @@ public class JsonController {
 
 
     protected <T> T readJson(Class<T> clazz, HttpServletRequest request) throws IOException {
-        return mapper.readValue(request.getInputStream(),clazz);
+        return mapper.readValue(request.getInputStream(), clazz);
     }
-
-
 
 
 }

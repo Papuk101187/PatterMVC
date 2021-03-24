@@ -40,6 +40,8 @@ public class AddNoteServlet extends HttpServlet {
 
 
         request.setAttribute("applicat", applicat);
+
+
         getServletContext().getRequestDispatcher("/WEB-INF/views/mjsp1.jsp").forward(request, response);
 
 
@@ -48,6 +50,7 @@ public class AddNoteServlet extends HttpServlet {
 
     @SneakyThrows
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        UserService userService = new UserService();
 
         response.setCharacterEncoding("cp1251");
         response.setContentType("text/html;charset=cp1251");

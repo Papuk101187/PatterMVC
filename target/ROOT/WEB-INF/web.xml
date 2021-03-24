@@ -5,56 +5,55 @@
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
-    <servlet>
-        <servlet-name>AddNoteServlet</servlet-name>
-        <servlet-class>org.example.projectjspandjstl.servlets.AddNoteServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>AddNoteServlet</servlet-name>
-        <url-pattern>/users/*</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>AddNoteServlet</servlet-name>
-        <url-pattern>/adduser</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>NotesServlet</servlet-name>
-        <servlet-class>org.example.projectjspandjstl.servlets.NotesServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>NotesServlet</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
-
-
-    <servlet>
-        <servlet-name>DeleteNoteServlet</servlet-name>
-        <servlet-class>org.example.projectjspandjstl.servlets.DeleteNoteServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>DeleteNoteServlet</servlet-name>
-        <url-pattern>/delete</url-pattern>
-    </servlet-mapping>
-
-
-
-
-
-
 <!--    <servlet>-->
-<!--        <servlet-name>DispatcherServlet</servlet-name>-->
-<!--        <servlet-class>org.example.project2mvc.infrastructure.DispatcherServlet</servlet-class>-->
+<!--        <servlet-name>AddNoteServlet</servlet-name>-->
+<!--        <servlet-class>org.example.projectjspandjstl.servlets.AddNoteServlet</servlet-class>-->
 <!--    </servlet>-->
 
 <!--    <servlet-mapping>-->
-<!--        <servlet-name>DispatcherServlet</servlet-name>-->
+<!--        <servlet-name>AddNoteServlet</servlet-name>-->
+<!--        <url-pattern>/users/*</url-pattern>-->
+<!--    </servlet-mapping>-->
+
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>AddNoteServlet</servlet-name>-->
+<!--        <url-pattern>/adduser</url-pattern>-->
+<!--    </servlet-mapping>-->
+
+<!--    <servlet>-->
+<!--        <servlet-name>NotesServlet</servlet-name>-->
+<!--        <servlet-class>org.example.projectjspandjstl.servlets.NotesServlet</servlet-class>-->
+<!--    </servlet>-->
+
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>NotesServlet</servlet-name>-->
 <!--        <url-pattern>/</url-pattern>-->
 <!--    </servlet-mapping>-->
+
+<!--    <servlet>-->
+<!--        <servlet-name>DeleteNoteServlet</servlet-name>-->
+<!--        <servlet-class>org.example.projectjspandjstl.servlets.DeleteNoteServlet</servlet-class>-->
+<!--    </servlet>-->
+
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>DeleteNoteServlet</servlet-name>-->
+<!--        <url-pattern>/delete</url-pattern>-->
+<!--    </servlet-mapping>-->
+
+
+
+
+
+
+    <servlet>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <servlet-class>org.example.project2mvc.infrastructure.DispatcherServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 
 
 
