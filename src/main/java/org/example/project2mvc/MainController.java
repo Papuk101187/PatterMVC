@@ -32,10 +32,10 @@ public class MainController extends JsonController {
         request.getServletContext().getRequestDispatcher("/WEB-INF/views/copu.jsp").forward(request, response);
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("delete")
     public void usersDelete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        String id = (String) request.getAttribute("id");
+        String id = request.getParameter("id");
 
         UserService userService = new UserService();
         ApplicationsService applicationsService = new ApplicationsService();
@@ -54,7 +54,6 @@ public class MainController extends JsonController {
     public void usersPut(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
 
         System.out.println("Попали в метод add");
-
         UserService userService = new UserService();
 
         response.setCharacterEncoding("cp1251");
@@ -103,6 +102,7 @@ public class MainController extends JsonController {
         request.setAttribute("applicat", applicat);
         request.getServletContext().getRequestDispatcher("/WEB-INF/views/mjsp1.jsp").forward(request, response);
     }
+
 
 
 }

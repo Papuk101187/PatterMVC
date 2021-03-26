@@ -45,6 +45,9 @@ public class DispatcherServlet extends HttpServlet {
             for (Method m : controller.getDeclaredMethods()) {
 
 
+                System.out.println("m "+m);
+
+
                 if (request.getMethod().equalsIgnoreCase("GET")
                         && m.isAnnotationPresent(GetMapping.class)) {
                     address = m.getAnnotation(GetMapping.class).value();} // ГЛАВНАЯ СТРАНИЦА
@@ -52,20 +55,13 @@ public class DispatcherServlet extends HttpServlet {
 
                 if (request.getMethod().equalsIgnoreCase("POST")
                         && m.isAnnotationPresent(DeleteMapping.class)) {
-                    String originalPath = request.getRequestURI().substring(request.getContextPath().length());
-                    pathMatcher.match(originalPath,m.getAnnotation(DeleteMapping.class).value());
-                    String id = pathMatcher.getAdress().get("id");
-                    request.setAttribute("id",id);
-                    address = originalPath.substring(1);
-                    System.out.println("DeleteMapping ="+id);}            // УДАЛЕНИЕ ЮЗЕРА
-
-
+                    address = m.getAnnotation(DeleteMapping.class).value();
+                }            // УДАЛЕНИЕ ЮЗЕРА
 
                 if (request.getMethod().equalsIgnoreCase("POST")  // ДОБАВЛЕНИЕ ЮЗЕРА
                         && m.isAnnotationPresent(PostMapping.class)) {
                     address = m.getAnnotation(PostMapping.class).value();
                     System.out.println("PostMapping");}
-
 
                 if (request.getMethod().equalsIgnoreCase("GET")   // ПОКАЗЫВАЕМ ЗАЯВКИ ПО ЮЗЕРУ
                         && m.isAnnotationPresent(PutMapping.class)) {
