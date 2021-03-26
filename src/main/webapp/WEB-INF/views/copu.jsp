@@ -31,7 +31,7 @@
 
             <table border="1">
 
-                <form action="<c:url value="/delete"/>" method="post">
+                <form action="<c:url value="/delete/${users.id}"/>" method="post">
                     <input type="hidden" value="${users.id}" name="id">
                     <td><input type="submit" value="delete"></td>
                 </form>

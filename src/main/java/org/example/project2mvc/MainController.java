@@ -7,6 +7,7 @@ import org.example.projectjspandjstl.service.ApplicationsService;
 import org.example.projectjspandjstl.service.UserService;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -17,6 +18,7 @@ import java.util.Map;
 
 @Controller
 public class MainController extends JsonController {
+
 
     @Autowired
     public UserService service;
@@ -30,15 +32,16 @@ public class MainController extends JsonController {
         request.getServletContext().getRequestDispatcher("/WEB-INF/views/copu.jsp").forward(request, response);
     }
 
-    @DeleteMapping("delete")
+    @DeleteMapping("delete/{id}")
     public void usersDelete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+        String id = (String) request.getAttribute("id");
 
         UserService userService = new UserService();
         ApplicationsService applicationsService = new ApplicationsService();
 
         response.setCharacterEncoding("cp1251");
         response.setContentType("text/html;charset=cp1251");
-        String id = request.getParameter("id");
 
         applicationsService.deleteApplicationsForId(id);
         userService.deieteUserForId(id);
@@ -49,6 +52,8 @@ public class MainController extends JsonController {
 
     @PostMapping("add")
     public void usersPut(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
+
+        System.out.println("Попали в метод add");
 
         UserService userService = new UserService();
 
@@ -89,22 +94,14 @@ public class MainController extends JsonController {
 
     }
 
-    @PutMapping("users/")
+    @PutMapping("users/{id}")
     public void usersInfo(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
-
+        String id = (String) request.getAttribute("id");
         UserService userService = new UserService();
-        int count = request.getRequestURI().length();
-        String id = request.getRequestURI().substring(28);
-
-
         User user = userService.getAllUsersId(id);
         ArrayList<Applications> applicat = applicationsService.getApplications(id);
-
-
         request.setAttribute("applicat", applicat);
         request.getServletContext().getRequestDispatcher("/WEB-INF/views/mjsp1.jsp").forward(request, response);
-
-
     }
 
 

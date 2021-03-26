@@ -58,12 +58,7 @@ public class ApplicationContext {
 
     public Object getBeanByType(Class type) {
 
-//        Object value = beans.keySet().stream().filter(type::isAssignableFrom)
-//                .findFirst()
-//                .map(cls->beans.get(cls))
-//                .orElse(null);
-//
-//
+
         Object value = beans.keySet().stream()
                 .filter(type::isAssignableFrom)
                 .findFirst()
