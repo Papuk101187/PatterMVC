@@ -45,25 +45,22 @@ public class DispatcherServlet extends HttpServlet {
             for (Method m : controller.getDeclaredMethods()) {
 
 
-                System.out.println("m "+m);
-
-
                 if (request.getMethod().equalsIgnoreCase("GET")
                         && m.isAnnotationPresent(GetMapping.class)) {
-                    address = m.getAnnotation(GetMapping.class).value();} // ГЛАВНАЯ СТРАНИЦА
+                    address = m.getAnnotation(GetMapping.class).value();}  // _____________ ГЛАВНАЯ СТРАНИЦА
 
 
                 if (request.getMethod().equalsIgnoreCase("POST")
                         && m.isAnnotationPresent(DeleteMapping.class)) {
-                    address = m.getAnnotation(DeleteMapping.class).value();
-                }            // УДАЛЕНИЕ ЮЗЕРА
+                    address = m.getAnnotation(DeleteMapping.class).value(); // _______________УДАЛЕНИЕ ЮЗЕРА
+                }
 
-                if (request.getMethod().equalsIgnoreCase("POST")  // ДОБАВЛЕНИЕ ЮЗЕРА
+                if (request.getMethod().equalsIgnoreCase("POST")  //______________ДОБАВЛЕНИЕ ЮЗЕРА
                         && m.isAnnotationPresent(PostMapping.class)) {
                     address = m.getAnnotation(PostMapping.class).value();
                     System.out.println("PostMapping");}
 
-                if (request.getMethod().equalsIgnoreCase("GET")   // ПОКАЗЫВАЕМ ЗАЯВКИ ПО ЮЗЕРУ
+                if (request.getMethod().equalsIgnoreCase("GET")   // _________ПОКАЗЫВАЕМ ЗАЯВКИ ПО ЮЗЕРУ
                         && m.isAnnotationPresent(PutMapping.class)) {
                     String originalPath = request.getRequestURI().substring(request.getContextPath().length());
                     pathMatcher.match(originalPath,m.getAnnotation(PutMapping.class).value());

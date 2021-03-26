@@ -27,21 +27,22 @@ public class PathMatcher {
 
 
         if (originalPath.substring(1).split("/").length != pathPattern.split("/").length) {
-            System.out.println(false);
+            System.out.println(false); // _____ ПРОВЕРЯЮ ДЛИННУ ЧАСТЕЙ
         } else {
 
             Pattern keys = Pattern.compile("((\\{(.+)}))");
             Matcher matchKey = keys.matcher(pathPattern);
             while (matchKey.find()) {
-                key = matchKey.group(3);
+                key = matchKey.group(3);         // _____ СОЗДАЮ КЛЮЧ ДЛЯ МАПЫ
             }
 
             Pattern values = Pattern.compile("(\\w++)(.)((\\w+))");
             Matcher matchValue = values.matcher(originalPath);
             while (matchValue.find()) {
-                value = matchValue.group(3);
+                value = matchValue.group(3);     // _____ СОЗДАЮ ЗНАЧЕНИЕ ДЛЯ МАПЫ
             }
-            adress.put(key, value);
+
+            adress.put(key, value);             // _____ СЛАЖИВАЮ В МАПУ
 
             return true;
         }
