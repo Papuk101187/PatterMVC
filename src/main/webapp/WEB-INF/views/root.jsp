@@ -1,6 +1,3 @@
-<%@ page import="org.example.projectjspandjstl.service.UserService" %>
-<%@ page import="org.example.projectjspandjstl.entity.User" %>
-<%@ page import="java.util.List" %>
 <%@page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html;charset=cp1251" %>
@@ -18,34 +15,42 @@
 
 
 <body>
+<body bgcolor="#A0BEC4">
 
 
 <ul>
+
     <c:forEach var="users" items="${users}">
 
         <li>
+
+
             <a
-                    href="<c:url value="/users${users.id}"/>">
+                    href="<c:url value="/users/${users.id}"/>">
                 <table border="1">
-                <td><b>${users.fio}</b></td>
-                    </table>
+                    <td><b>${users.fio}</b></td>
+                </table>
             </a>
+
+
             <table border="1">
 
-            <form action="<c:url value="/delete"/>" method="post">
-               <input type="hidden" value="${users.id}" name="id">
-                <td><input type="submit" value="delete"></td>
-           </form>
+                <form action="<c:url value="/delete/${users.id}"/>" method="post">
+                    <input type="hidden" value="${users.id}" name="id">
+                    <td><input type="submit" value="delete"></td>
+                </form>
             </table>
+
+
         </li>
 
 
-        </c:forEach>
+    </c:forEach>
+
 </ul>
 
 
-
-<form action="<c:url value="/add"/>" method="post">
+<form action="<c:url value="add"/>" method="post">
 
     username: <input type="text" name="name"> <br>
     password: <input type="password" name="password"> <br>

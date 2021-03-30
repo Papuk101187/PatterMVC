@@ -42,7 +42,7 @@ public class AddNoteServlet extends HttpServlet {
         request.setAttribute("applicat", applicat);
 
 
-        getServletContext().getRequestDispatcher("/WEB-INF/views/mjsp1.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/views/page1.jsp").forward(request, response);
 
 
     }

@@ -1,12 +1,9 @@
 package org.example.project2mvc.infrastructure;
-import org.example.PathMatcher;
-import org.example.project2mvc.MainController;
+
+import org.example.PathMatcherNew;
 import org.example.project2mvc.annotations.*;
 import org.example.project2mvc.refction.PackageScanner;
-import org.example.projectjspandjstl.entity.User;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,16 +11,20 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Date;
+import java.nio.file.PathMatcher;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DispatcherServlet extends HttpServlet {
-
 
     private final PackageScanner packageScanner = new PackageScanner();
     private final ApplicationContext context = new ApplicationContext();
     private final List<Class<?>> controllers;
-    PathMatcher pathMatcher = new PathMatcher();  // Тот самый класс PathMatcher
+
+
+    PathMatcherNew pathMatcher = new PathMatcherNew();
+    int COUNT = 0;
 
 
     public DispatcherServlet() throws IllegalAccessException {
@@ -35,7 +36,6 @@ public class DispatcherServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
-        Date date = new Date();
 
         String address = null;
 
@@ -44,44 +44,70 @@ public class DispatcherServlet extends HttpServlet {
 
             for (Method m : controller.getDeclaredMethods()) {
 
+                System.out.println("****************** №"+COUNT+" ***************************");
 
                 if (request.getMethod().equalsIgnoreCase("GET")
                         && m.isAnnotationPresent(GetMapping.class)) {
-                    address = m.getAnnotation(GetMapping.class).value();}  // _____________ ГЛАВНАЯ СТРАНИЦА
-
+                    System.out.println("Аннотация GetMapping");
+                    address = m.getAnnotation(GetMapping.class).value();
+                }
 
                 if (request.getMethod().equalsIgnoreCase("POST")
                         && m.isAnnotationPresent(DeleteMapping.class)) {
-                    address = m.getAnnotation(DeleteMapping.class).value(); // _______________УДАЛЕНИЕ ЮЗЕРА
+                    System.out.println("Аннотация DeleteMapping");
+                    address = m.getAnnotation(DeleteMapping.class).value();
                 }
 
-                if (request.getMethod().equalsIgnoreCase("POST")  //______________ДОБАВЛЕНИЕ ЮЗЕРА
+                if (request.getMethod().equalsIgnoreCase("POST")
                         && m.isAnnotationPresent(PostMapping.class)) {
+                    System.out.println("Аннотация PostMapping");
                     address = m.getAnnotation(PostMapping.class).value();
-                    System.out.println("PostMapping");}
+                }
 
-                if (request.getMethod().equalsIgnoreCase("GET")   // _________ПОКАЗЫВАЕМ ЗАЯВКИ ПО ЮЗЕРУ
+                if (request.getMethod().equalsIgnoreCase("GET")
                         && m.isAnnotationPresent(PutMapping.class)) {
-                    String originalPath = request.getRequestURI().substring(request.getContextPath().length());
-                    pathMatcher.match(originalPath,m.getAnnotation(PutMapping.class).value());
-                    String id = pathMatcher.getAdress().get("id");
-                    request.setAttribute("id",id);
-                    address = originalPath.substring(1);
-                    System.out.println("PutMapping"); }
+                    System.out.println("Аннотация PutMapping");
+                    address = m.getAnnotation(PutMapping.class).value();
+                }
+
 
 
                 if (address == null) continue;
+                System.out.println("***********************************************");
+                System.out.println("I. request.getContextPath() "+request.getContextPath());
+                System.out.println("II. address "+address);
                 String addr = request.getContextPath() + "/" + address;
+                System.out.println("II. addr "+addr);
+                System.out.println("***********************************************");
+                COUNT++;
                 if (extracted(request, resp, controller, m, addr)) return;
             }
 
         }
         resp.setStatus(404);
         resp.getWriter().write("NOT FOUND");
+
     }
 
     private boolean extracted(HttpServletRequest request, HttpServletResponse resp, Class<?> controller, Method m, String addr) {
-        if (addr.equalsIgnoreCase(request.getRequestURI())) {
+        PathMatcherNew pathMatcherNew = new PathMatcherNew();
+
+
+
+        System.out.println("addr ="+addr);
+        System.out.println("request.getRequestURI(); ="+request.getRequestURI());
+        System.out.println("pathMatcherNew.match(request.getContextPath(),addr) ="+pathMatcherNew.match(request.getRequestURI(),addr));
+
+
+        if (pathMatcherNew.match(request.getRequestURI(),addr)) {
+
+            String pathMatcherKey = pathMatcherNew.getKey();
+            String pathMatcherValue = pathMatcherNew.getAdress().get(pathMatcherKey);
+
+            if(pathMatcherKey!=null&&pathMatcherValue!=null){
+                request.setAttribute(pathMatcherKey,pathMatcherValue);
+            }
+
 
             Object instance = context.getBeanByType(controller);
             try {

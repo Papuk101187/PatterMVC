@@ -29,13 +29,13 @@ public class MainController extends JsonController {
     public void usersPage(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         List<User> users = service.getAllUsers();
         request.setAttribute("users", users);
-        request.getServletContext().getRequestDispatcher("/WEB-INF/views/copu.jsp").forward(request, response);
+        request.getServletContext().getRequestDispatcher("/WEB-INF/views/root.jsp").forward(request, response);
     }
 
-    @DeleteMapping("delete")
+    @DeleteMapping("delete/{id}")
     public void usersDelete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        String id = request.getParameter("id");
+        String id = (String) request.getAttribute("id");
 
         UserService userService = new UserService();
         ApplicationsService applicationsService = new ApplicationsService();
@@ -95,12 +95,17 @@ public class MainController extends JsonController {
 
     @PutMapping("users/{id}")
     public void usersInfo(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
+
         String id = (String) request.getAttribute("id");
+        System.out.println("id ===== "+id);
+
         UserService userService = new UserService();
         User user = userService.getAllUsersId(id);
+        System.out.println("user "+user);
         ArrayList<Applications> applicat = applicationsService.getApplications(id);
         request.setAttribute("applicat", applicat);
-        request.getServletContext().getRequestDispatcher("/WEB-INF/views/mjsp1.jsp").forward(request, response);
+        System.out.println("applicat "+applicat);
+        request.getServletContext().getRequestDispatcher("/WEB-INF/views/page1.jsp").forward(request, response);
     }
 
 
